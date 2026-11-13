@@ -22,19 +22,20 @@ interface SiswaDao {
 
 
 
+
 package com.example.roomdb.repositori
 
-object ImporSiswa {
+import com.example.roomdb.room.Siswa
 
-    fun bacaCSV(dataCSV: String): List<List<String>> {
-        return dataCSV
-            .lines()
-            .drop(1)
-            .filter { it.isNotBlank() }
-            .map { baris ->
-                baris.split(",").map { nilai ->
-                    nilai.trim().removeSurrounding("\"")
-                }
-            }
+object CadanganSiswa {
+
+    fun buatCadangan(daftarSiswa: List<Siswa>): String {
+        return daftarSiswa.joinToString(separator = "\n") { siswa ->
+            "${siswa.id}|${siswa.nama}|${siswa.alamat}|${siswa.telpon}"
+        }
+    }
+
+    fun jumlahDataCadangan(data: String): Int {
+        return data.lines().count { it.isNotBlank() }
     }
 }
