@@ -17,29 +17,24 @@ class ContainerDataApp(private val context: Context) : ContainerApp {
 
 package com.example.roomdb.repositori
 
-object ValidasiSiswa {
+object FormatDataSiswa {
 
-    fun cekNama(nama: String): Boolean {
-        return nama.isNotBlank()
+    fun formatNama(nama: String): String {
+        return nama.trim()
+            .split(" ")
+            .filter { it.isNotBlank() }
+            .joinToString(" ") {
+                it.lowercase().replaceFirstChar { huruf ->
+                    huruf.uppercase()
+                }
+            }
     }
 
-    fun cekAlamat(alamat: String): Boolean {
-        return alamat.isNotBlank()
+    fun formatAlamat(alamat: String): String {
+        return alamat.trim()
     }
 
-    fun cekNomorTelepon(nomor: String): Boolean {
-        return nomor.isNotBlank() &&
-                nomor.all { it.isDigit() } &&
-                nomor.length >= 10
-    }
-
-    fun cekDataSiswa(
-        nama: String,
-        alamat: String,
-        nomor: String
-    ): Boolean {
-        return cekNama(nama) &&
-                cekAlamat(alamat) &&
-                cekNomorTelepon(nomor)
+    fun formatNomorTelepon(nomor: String): String {
+        return nomor.filter { it.isDigit() }
     }
 }
