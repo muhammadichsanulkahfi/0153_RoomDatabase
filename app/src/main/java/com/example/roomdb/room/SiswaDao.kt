@@ -17,78 +17,36 @@ interface SiswaDao {
 
 
 
-package com.example.roomdb.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
+package com.example.roomdb.repositori
+
 import com.example.roomdb.room.Siswa
-import com.example.roomdb.repositori.RepositoriSiswa
 
-class EntryViewModel(
-    private val repositoriSiswa: RepositoriSiswa
-) : ViewModel() {
+object FilterSiswa {
 
-    var uiStateSiswa by mutableStateOf(UIStateSiswa())
-        private set
+    fun filterNama(
+        daftarSiswa: List<Siswa>,
+        kataKunci: String
+    ): List<Siswa> {
+        if (kataKunci.isBlank()) {
+            return daftarSiswa
+        }
 
-    private fun validasiInput(
-        uiState: DetailSiswa = uiStateSiswa.detailSiswa
-    ): Boolean {
-        return with(uiState) {
-            nama.isNotBlank() &&
-                    alamat.isNotBlank() &&
-                    telpon.length >= 10 &&
-                    telpon.all { it.isDigit() }
+        return daftarSiswa.filter {
+            it.nama.contains(kataKunci, ignoreCase = true)
         }
     }
 
-    fun updateUiState(detailSiswa: DetailSiswa) {
-        uiStateSiswa = UIStateSiswa(
-            detailSiswa = detailSiswa,
-            isEntryValid = validasiInput(detailSiswa)
-        )
-    }
+    fun filterAlamat(
+        daftarSiswa: List<Siswa>,
+        alamat: String
+    ): List<Siswa> {
+        if (alamat.isBlank()) {
+            return daftarSiswa
+        }
 
-    suspend fun saveSiswa() {
-        if (validasiInput()) {
-            repositoriSiswa.insertSiswa(
-                uiStateSiswa.detailSiswa.toSiswa()
-            )
+        return daftarSiswa.filter {
+            it.alamat.contains(alamat, ignoreCase = true)
         }
     }
 }
-
-data class UIStateSiswa(
-    val detailSiswa: DetailSiswa = DetailSiswa(),
-    val isEntryValid: Boolean = false
-)
-
-data class DetailSiswa(
-    val id: Int = 0,
-    val nama: String = "",
-    val alamat: String = "",
-    val telpon: String = ""
-)
-
-fun DetailSiswa.toSiswa(): Siswa = Siswa(
-    id = id,
-    nama = nama,
-    alamat = alamat,
-    telpon = telpon
-)
-
-fun Siswa.toUiStateSiswa(
-    isEntryValid: Boolean = false
-): UIStateSiswa = UIStateSiswa(
-    detailSiswa = toDetailSiswa(),
-    isEntryValid = isEntryValid
-)
-
-fun Siswa.toDetailSiswa(): DetailSiswa = DetailSiswa(
-    id = id,
-    nama = nama,
-    alamat = alamat,
-    telpon = telpon
-)
