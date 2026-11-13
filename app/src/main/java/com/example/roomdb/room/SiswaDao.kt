@@ -23,22 +23,28 @@ interface SiswaDao {
 
 
 
+
+
 package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object UrutanSiswa {
+object StatistikAlamatSiswa {
 
-    fun urutkanAlamat(daftarSiswa: List<Siswa>): List<Siswa> {
-        return daftarSiswa.sortedBy { it.alamat.lowercase() }
+    fun hitungJumlahAlamatUnik(daftarSiswa: List<Siswa>): Int {
+        return daftarSiswa
+            .map { it.alamat.trim().lowercase() }
+            .filter { it.isNotBlank() }
+            .distinct()
+            .size
     }
 
-    fun urutkanTelepon(daftarSiswa: List<Siswa>): List<Siswa> {
-        return daftarSiswa.sortedBy { it.telpon }
-    }
-
-    fun urutkanTerbaru(daftarSiswa: List<Siswa>): List<Siswa> {
-        return daftarSiswa.sortedByDescending { it.id }
+    fun hitungJumlahNamaUnik(daftarSiswa: List<Siswa>): Int {
+        return daftarSiswa
+            .map { it.nama.trim().lowercase() }
+            .filter { it.isNotBlank() }
+            .distinct()
+            .size
     }
 }
 
