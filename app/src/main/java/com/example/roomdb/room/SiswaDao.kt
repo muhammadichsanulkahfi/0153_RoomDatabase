@@ -21,26 +21,20 @@ interface SiswaDao {
 
 
 
+
 package com.example.roomdb.repositori
 
-import com.example.roomdb.room.Siswa
+object ImporSiswa {
 
-object EksporSiswa {
-
-    fun buatCSV(daftarSiswa: List<Siswa>): String {
-        val header = "ID,Nama,Alamat,Telepon"
-
-        val isi = daftarSiswa.map { siswa ->
-            listOf(
-                siswa.id.toString(),
-                siswa.nama,
-                siswa.alamat,
-                siswa.telpon
-            ).joinToString(",") { nilai ->
-                "\"${nilai.replace("\"", "\"\"")}\""
+    fun bacaCSV(dataCSV: String): List<List<String>> {
+        return dataCSV
+            .lines()
+            .drop(1)
+            .filter { it.isNotBlank() }
+            .map { baris ->
+                baris.split(",").map { nilai ->
+                    nilai.trim().removeSurrounding("\"")
+                }
             }
-        }
-
-        return (listOf(header) + isi).joinToString("\n")
     }
 }
