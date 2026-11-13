@@ -27,28 +27,19 @@ package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object PemeriksaAlamat {
+object PengolahNamaSiswa {
 
-    fun cariBerdasarkanKota(
-        daftarSiswa: List<Siswa>,
-        kataKunci: String
-    ): List<Siswa> {
-        if (kataKunci.isBlank()) return emptyList()
-
-        return daftarSiswa.filter {
-            it.alamat.contains(kataKunci.trim(), ignoreCase = true)
-        }
+    fun ambilNamaTerpanjang(daftarSiswa: List<Siswa>): String {
+        return daftarSiswa
+            .maxByOrNull { it.nama.length }
+            ?.nama ?: "Belum ada data"
     }
 
-    fun cekAlamatSama(
-        daftarSiswa: List<Siswa>,
-        alamat: String
-    ): Boolean {
-        return daftarSiswa.any {
-            it.alamat.equals(alamat.trim(), ignoreCase = true)
-        }
+    fun ambilNamaTerpendek(daftarSiswa: List<Siswa>): String {
+        return daftarSiswa
+            .filter { it.nama.isNotBlank() }
+            .minByOrNull { it.nama.length }
+            ?.nama ?: "Belum ada data"
     }
 }
-
-
 
