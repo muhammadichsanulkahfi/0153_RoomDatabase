@@ -20,33 +20,27 @@ interface SiswaDao {
 
 
 
+
 package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object PemeriksaSiswa {
+object EksporSiswa {
 
-    fun apakahNamaSudahAda(
-        daftarSiswa: List<Siswa>,
-        nama: String
-    ): Boolean {
-        return daftarSiswa.any {
-            it.nama.equals(nama.trim(), ignoreCase = true)
+    fun buatCSV(daftarSiswa: List<Siswa>): String {
+        val header = "ID,Nama,Alamat,Telepon"
+
+        val isi = daftarSiswa.map { siswa ->
+            listOf(
+                siswa.id.toString(),
+                siswa.nama,
+                siswa.alamat,
+                siswa.telpon
+            ).joinToString(",") { nilai ->
+                "\"${nilai.replace("\"", "\"\"")}\""
+            }
         }
-    }
 
-    fun apakahNomorTeleponSudahAda(
-        daftarSiswa: List<Siswa>,
-        telpon: String
-    ): Boolean {
-        return daftarSiswa.any {
-            it.telpon == telpon
-        }
-    }
-
-    fun apakahDataKosong(
-        daftarSiswa: List<Siswa>
-    ): Boolean {
-        return daftarSiswa.isEmpty()
+        return (listOf(header) + isi).joinToString("\n")
     }
 }
