@@ -23,25 +23,23 @@ interface SiswaDao {
 
 
 
+
 package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object PengelompokanSiswa {
+object PenghitungSiswa {
 
-    fun kelompokkanBerdasarkanHuruf(
-        daftarSiswa: List<Siswa>
-    ): Map<Char, List<Siswa>> {
-        return daftarSiswa
-            .filter { it.nama.isNotBlank() }
-            .groupBy { it.nama.trim().first().uppercaseChar() }
-            .toSortedMap()
+    fun hitungNamaTerisi(daftarSiswa: List<Siswa>): Int {
+        return daftarSiswa.count { it.nama.isNotBlank() }
     }
 
-    fun kelompokkanBerdasarkanAlamat(
-        daftarSiswa: List<Siswa>
-    ): Map<String, List<Siswa>> {
-        return daftarSiswa.groupBy { it.alamat.trim() }
+    fun hitungAlamatTerisi(daftarSiswa: List<Siswa>): Int {
+        return daftarSiswa.count { it.alamat.isNotBlank() }
+    }
+
+    fun hitungTeleponTerisi(daftarSiswa: List<Siswa>): Int {
+        return daftarSiswa.count { it.telpon.isNotBlank() }
     }
 }
 
