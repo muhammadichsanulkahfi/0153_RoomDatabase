@@ -23,24 +23,32 @@ interface SiswaDao {
 
 
 
-
 package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object PenghitungSiswa {
+object PemeriksaAlamat {
 
-    fun hitungNamaTerisi(daftarSiswa: List<Siswa>): Int {
-        return daftarSiswa.count { it.nama.isNotBlank() }
+    fun cariBerdasarkanKota(
+        daftarSiswa: List<Siswa>,
+        kataKunci: String
+    ): List<Siswa> {
+        if (kataKunci.isBlank()) return emptyList()
+
+        return daftarSiswa.filter {
+            it.alamat.contains(kataKunci.trim(), ignoreCase = true)
+        }
     }
 
-    fun hitungAlamatTerisi(daftarSiswa: List<Siswa>): Int {
-        return daftarSiswa.count { it.alamat.isNotBlank() }
-    }
-
-    fun hitungTeleponTerisi(daftarSiswa: List<Siswa>): Int {
-        return daftarSiswa.count { it.telpon.isNotBlank() }
+    fun cekAlamatSama(
+        daftarSiswa: List<Siswa>,
+        alamat: String
+    ): Boolean {
+        return daftarSiswa.any {
+            it.alamat.equals(alamat.trim(), ignoreCase = true)
+        }
     }
 }
+
 
 
