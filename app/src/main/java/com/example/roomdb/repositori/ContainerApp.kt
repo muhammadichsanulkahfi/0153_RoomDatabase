@@ -17,25 +17,29 @@ class ContainerDataApp(private val context: Context) : ContainerApp {
 
 package com.example.roomdb.repositori
 
-import com.example.roomdb.room.Siswa
-import com.example.roomdb.room.SiswaDao
-import kotlinx.coroutines.flow.Flow
+object ValidasiSiswa {
 
-interface RepositoriSiswa {
+    fun cekNama(nama: String): Boolean {
+        return nama.isNotBlank()
+    }
 
-    fun getAllSiswaStream(): Flow<List<Siswa>>
+    fun cekAlamat(alamat: String): Boolean {
+        return alamat.isNotBlank()
+    }
 
-    suspend fun insertSiswa(siswa: Siswa)
-}
+    fun cekNomorTelepon(nomor: String): Boolean {
+        return nomor.isNotBlank() &&
+                nomor.all { it.isDigit() } &&
+                nomor.length >= 10
+    }
 
-class OfflineRepositoriSiswa(
-    private val siswaDao: SiswaDao
-) : RepositoriSiswa {
-
-    override fun getAllSiswaStream(): Flow<List<Siswa>> =
-        siswaDao.getAllSiswa()
-
-    override suspend fun insertSiswa(siswa: Siswa) {
-        siswaDao.insert(siswa)
+    fun cekDataSiswa(
+        nama: String,
+        alamat: String,
+        nomor: String
+    ): Boolean {
+        return cekNama(nama) &&
+                cekAlamat(alamat) &&
+                cekNomorTelepon(nomor)
     }
 }
