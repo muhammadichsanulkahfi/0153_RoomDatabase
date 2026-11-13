@@ -27,19 +27,20 @@ package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object PengolahNamaSiswa {
+object PembersihDataSiswa {
 
-    fun ambilNamaTerpanjang(daftarSiswa: List<Siswa>): String {
-        return daftarSiswa
-            .maxByOrNull { it.nama.length }
-            ?.nama ?: "Belum ada data"
+    fun bersihkanNama(daftarSiswa: List<Siswa>): List<Siswa> {
+        return daftarSiswa.filter { it.nama.isNotBlank() }
     }
 
-    fun ambilNamaTerpendek(daftarSiswa: List<Siswa>): String {
-        return daftarSiswa
-            .filter { it.nama.isNotBlank() }
-            .minByOrNull { it.nama.length }
-            ?.nama ?: "Belum ada data"
+    fun bersihkanAlamat(daftarSiswa: List<Siswa>): List<Siswa> {
+        return daftarSiswa.filter { it.alamat.isNotBlank() }
+    }
+
+    fun bersihkanTelepon(daftarSiswa: List<Siswa>): List<Siswa> {
+        return daftarSiswa.filter { it.telpon.isNotBlank() }
     }
 }
+
+
 
