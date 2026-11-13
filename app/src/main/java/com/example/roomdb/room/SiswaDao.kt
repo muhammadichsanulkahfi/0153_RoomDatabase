@@ -27,18 +27,18 @@ package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object PembersihDataSiswa {
+object UrutanSiswa {
 
-    fun bersihkanNama(daftarSiswa: List<Siswa>): List<Siswa> {
-        return daftarSiswa.filter { it.nama.isNotBlank() }
+    fun urutkanAlamat(daftarSiswa: List<Siswa>): List<Siswa> {
+        return daftarSiswa.sortedBy { it.alamat.lowercase() }
     }
 
-    fun bersihkanAlamat(daftarSiswa: List<Siswa>): List<Siswa> {
-        return daftarSiswa.filter { it.alamat.isNotBlank() }
+    fun urutkanTelepon(daftarSiswa: List<Siswa>): List<Siswa> {
+        return daftarSiswa.sortedBy { it.telpon }
     }
 
-    fun bersihkanTelepon(daftarSiswa: List<Siswa>): List<Siswa> {
-        return daftarSiswa.filter { it.telpon.isNotBlank() }
+    fun urutkanTerbaru(daftarSiswa: List<Siswa>): List<Siswa> {
+        return daftarSiswa.sortedByDescending { it.id }
     }
 }
 
