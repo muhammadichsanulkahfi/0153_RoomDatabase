@@ -19,17 +19,21 @@ package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object PencarianSiswa {
+object UrutkanSiswa {
 
-    fun cariSiswa(
-        daftarSiswa: List<Siswa>,
-        kataKunci: String
+    fun urutkanNamaAtoZ(
+        daftarSiswa: List<Siswa>
     ): List<Siswa> {
-        return daftarSiswa.filter { siswa ->
-            siswa.nama.contains(
-                kataKunci,
-                ignoreCase = true
-            )
+        return daftarSiswa.sortedBy {
+            it.nama.lowercase()
+        }
+    }
+
+    fun urutkanNamaZtoA(
+        daftarSiswa: List<Siswa>
+    ): List<Siswa> {
+        return daftarSiswa.sortedByDescending {
+            it.nama.lowercase()
         }
     }
 }
