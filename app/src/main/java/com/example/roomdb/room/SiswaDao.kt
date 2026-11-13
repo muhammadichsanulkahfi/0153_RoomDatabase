@@ -18,35 +18,31 @@ interface SiswaDao {
 
 
 
+
 package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object FilterSiswa {
+object RingkasanSiswa {
 
-    fun filterNama(
+    fun jumlahSiswa(
+        daftarSiswa: List<Siswa>
+    ): Int {
+        return daftarSiswa.size
+    }
+
+    fun jumlahSiswaDenganNama(
         daftarSiswa: List<Siswa>,
         kataKunci: String
-    ): List<Siswa> {
-        if (kataKunci.isBlank()) {
-            return daftarSiswa
-        }
-
-        return daftarSiswa.filter {
+    ): Int {
+        return daftarSiswa.count {
             it.nama.contains(kataKunci, ignoreCase = true)
         }
     }
 
-    fun filterAlamat(
-        daftarSiswa: List<Siswa>,
-        alamat: String
-    ): List<Siswa> {
-        if (alamat.isBlank()) {
-            return daftarSiswa
-        }
-
-        return daftarSiswa.filter {
-            it.alamat.contains(alamat, ignoreCase = true)
-        }
+    fun daftarNamaSiswa(
+        daftarSiswa: List<Siswa>
+    ): List<String> {
+        return daftarSiswa.map { it.nama }
     }
 }
