@@ -19,21 +19,23 @@ package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object UrutkanSiswa {
+object StatistikSiswa {
 
-    fun urutkanNamaAtoZ(
+    fun hitungJumlahSiswa(
         daftarSiswa: List<Siswa>
-    ): List<Siswa> {
-        return daftarSiswa.sortedBy {
-            it.nama.lowercase()
-        }
+    ): Int {
+        return daftarSiswa.size
     }
 
-    fun urutkanNamaZtoA(
+    fun cekApakahKosong(
         daftarSiswa: List<Siswa>
-    ): List<Siswa> {
-        return daftarSiswa.sortedByDescending {
-            it.nama.lowercase()
-        }
+    ): Boolean {
+        return daftarSiswa.isEmpty()
+    }
+
+    fun cekApakahAdaData(
+        daftarSiswa: List<Siswa>
+    ): Boolean {
+        return daftarSiswa.isNotEmpty()
     }
 }
