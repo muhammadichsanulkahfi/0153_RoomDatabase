@@ -27,17 +27,22 @@ package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object RingkasanTelepon {
+object PengelompokanSiswa {
 
-    fun daftarTelepon(daftarSiswa: List<Siswa>): List<String> {
+    fun kelompokkanBerdasarkanHuruf(
+        daftarSiswa: List<Siswa>
+    ): Map<Char, List<Siswa>> {
         return daftarSiswa
-            .map { it.telpon }
-            .filter { it.isNotBlank() }
-            .distinct()
+            .filter { it.nama.isNotBlank() }
+            .groupBy { it.nama.trim().first().uppercaseChar() }
+            .toSortedMap()
     }
 
-    fun jumlahTelepon(daftarSiswa: List<Siswa>): Int {
-        return daftarTelepon(daftarSiswa).size
+    fun kelompokkanBerdasarkanAlamat(
+        daftarSiswa: List<Siswa>
+    ): Map<String, List<Siswa>> {
+        return daftarSiswa.groupBy { it.alamat.trim() }
     }
 }
+
 
