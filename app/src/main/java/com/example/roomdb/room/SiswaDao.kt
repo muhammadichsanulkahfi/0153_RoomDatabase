@@ -27,15 +27,17 @@ package com.example.roomdb.repositori
 
 import com.example.roomdb.room.Siswa
 
-object CadanganSiswa {
+object RingkasanTelepon {
 
-    fun buatCadangan(daftarSiswa: List<Siswa>): String {
-        return daftarSiswa.joinToString(separator = "\n") { siswa ->
-            "${siswa.id}|${siswa.nama}|${siswa.alamat}|${siswa.telpon}"
-        }
+    fun daftarTelepon(daftarSiswa: List<Siswa>): List<String> {
+        return daftarSiswa
+            .map { it.telpon }
+            .filter { it.isNotBlank() }
+            .distinct()
     }
 
-    fun jumlahDataCadangan(data: String): Int {
-        return data.lines().count { it.isNotBlank() }
+    fun jumlahTelepon(daftarSiswa: List<Siswa>): Int {
+        return daftarTelepon(daftarSiswa).size
     }
 }
+
