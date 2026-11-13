@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.roomdb
 
 import org.junit.Test
 
