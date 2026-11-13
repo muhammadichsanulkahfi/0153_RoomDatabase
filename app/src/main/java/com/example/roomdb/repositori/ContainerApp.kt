@@ -17,24 +17,19 @@ class ContainerDataApp(private val context: Context) : ContainerApp {
 
 package com.example.roomdb.repositori
 
-object FormatDataSiswa {
+import com.example.roomdb.room.Siswa
 
-    fun formatNama(nama: String): String {
-        return nama.trim()
-            .split(" ")
-            .filter { it.isNotBlank() }
-            .joinToString(" ") {
-                it.lowercase().replaceFirstChar { huruf ->
-                    huruf.uppercase()
-                }
-            }
-    }
+object PencarianSiswa {
 
-    fun formatAlamat(alamat: String): String {
-        return alamat.trim()
-    }
-
-    fun formatNomorTelepon(nomor: String): String {
-        return nomor.filter { it.isDigit() }
+    fun cariSiswa(
+        daftarSiswa: List<Siswa>,
+        kataKunci: String
+    ): List<Siswa> {
+        return daftarSiswa.filter { siswa ->
+            siswa.nama.contains(
+                kataKunci,
+                ignoreCase = true
+            )
+        }
     }
 }
